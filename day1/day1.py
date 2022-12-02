@@ -8,5 +8,7 @@ for line in open("day1/input.txt", "r").readlines():
         calories.append(elfs_calories)
         elfs_calories = 0
 
+calories.append(elfs_calories)
+
 print(max(calories))
 print(sum(sorted(calories)[-3:]))
