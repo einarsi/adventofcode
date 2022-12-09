@@ -1,6 +1,6 @@
 from collections import deque
 
-data = open("day6/input.txt").read().strip()
+data = open("input.txt").read().strip()
 
 # Deque makes the code more readable, less error prone to off-by-one
 # errors and should be faster. Also more suited for an actual stream,
@@ -12,7 +12,7 @@ for ln in [4, 14]:
         d.append(c)
         if len(set(d)) == ln:
             break
-    print(i + 1)
+    print(i + 1)  # 1647, 2447
 
 # Original solution
 # for ln in [4, 14]:

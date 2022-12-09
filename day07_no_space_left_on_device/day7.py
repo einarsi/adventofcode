@@ -27,7 +27,7 @@ def get_smaller_dirs(node, dirs, max_size):
     return size
 
 
-data = [line.strip() for line in open("day7/input.txt").readlines()]
+data = [line.strip() for line in open("input.txt").readlines()]
 
 root = {"parent": None, "files": {}, "dirs": {}}
 
@@ -35,9 +35,9 @@ build_tree(root, data)
 
 small_dir_sizes = []
 size = get_smaller_dirs(root, small_dir_sizes, 100_000)
-print(sum(small_dir_sizes))
+print(sum(small_dir_sizes))  # 1743217
 
 all_dir_sizes = []
 total_size = get_smaller_dirs(root, all_dir_sizes, 999_999_999)
 min_dir_size = total_size - (70_000_000 - 30_000_000)
-print(sorted([d for d in all_dir_sizes if d > min_dir_size])[0])
+print(sorted([d for d in all_dir_sizes if d > min_dir_size])[0])  # 8319096

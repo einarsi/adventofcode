@@ -1,4 +1,4 @@
-data = [line.strip() for line in open("day8/input.txt")]
+data = [line.strip() for line in open("input.txt")]
 
 
 def visible_trees(location, line):
@@ -41,5 +41,5 @@ for i in range(1, len(forest) - 1):
 
         pt2 = max(pt2, score)
 
-print(pt1)
-print(pt2)
+print(pt1)  # 1708
+print(pt2)  # 504000

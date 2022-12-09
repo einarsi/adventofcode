@@ -3,7 +3,7 @@ def item_to_val(item):
     return val - 96 if val >= 97 else val - (64 - 26)
 
 
-lines = [line.rstrip() for line in open("day3/input.txt", "r").readlines()]
+lines = [line.rstrip() for line in open("input.txt", "r").readlines()]
 
 in_both = []
 for line in lines:
@@ -15,5 +15,5 @@ stickers = []
 for group in [lines[offset : offset + 3] for offset in range(0, len(lines), 3)]:
     stickers.append((set(group[0]) & set(group[1]) & set(group[2])).pop())
 
-print(sum(item_to_val(b) for b in in_both))
-print(sum(item_to_val(s) for s in stickers))
+print(sum(item_to_val(b) for b in in_both))  # 8233
+print(sum(item_to_val(s) for s in stickers))  # 2821

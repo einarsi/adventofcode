@@ -2,7 +2,7 @@ def sign(x):
     return (1, -1)[x < 0]
 
 
-lines = [line.strip() for line in open("day9/input.txt")]
+lines = [line.strip() for line in open("input.txt")]
 
 DIR = {"R": (1, 0), "L": (-1, 0), "U": (0, 1), "D": (0, -1)}
 
@@ -23,5 +23,5 @@ for line in lines:
             pos[k] = (pos[k][0] + move_x, pos[k][1] + move_y)
             all_positions[k].add(pos[k])
 
-print(len(all_positions[1]))
-print(len(all_positions[9]))
+print(len(all_positions[1]))  # 6269
+print(len(all_positions[9]))  # 2557
