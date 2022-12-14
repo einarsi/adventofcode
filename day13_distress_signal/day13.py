@@ -4,8 +4,8 @@ from functools import cmp_to_key
 def compare(l, r):
     if isinstance(l, int) and isinstance(r, int):
         return (l > r) - (l < r)
-    l = list((l,)) if isinstance(l, int) else l
-    r = list((r,)) if isinstance(r, int) else r
+    l = [l] if isinstance(l, int) else l
+    r = [r] if isinstance(r, int) else r
     for ll, rr in zip(l, r):
         if (cmp := compare(ll, rr)) != 0:
             return cmp
