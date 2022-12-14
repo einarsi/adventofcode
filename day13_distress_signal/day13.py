@@ -1,6 +1,3 @@
-from functools import cmp_to_key
-
-
 def compare(l, r):
     if isinstance(l, int) and isinstance(r, int):
         return (l > r) - (l < r)
@@ -10,6 +7,14 @@ def compare(l, r):
         if (cmp := compare(ll, rr)) != 0:
             return cmp
     return (len(l) > len(r)) - (len(l) < len(r))
+
+
+def bubble(data):
+    for i in range(len(data) - 1):
+        for j in range(len(data) - i - 1):
+            if compare(data[j], data[j + 1]) == 1:
+                data[j], data[j + 1] = data[j + 1], data[j]
+    return data
 
 
 pairlines = [p for p in open("input.txt").read().split("\n\n")]
@@ -31,6 +36,9 @@ dividers = ([[2]], [[6]])
 pckts = [p for pair in pckt_pairs for p in pair]
 pckts.extend(dividers)
 
-pckts.sort(key=cmp_to_key(compare))
+pckts = bubble(pckts)
+# Alternative to bubblesort:
+# from functools import cmp_to_key
+# pckts.sort(key=cmp_to_key(compare))
 print(pt2 := (pckts.index(dividers[0]) + 1) * (pckts.index(dividers[1]) + 1))
 assert pt2 == 24477
