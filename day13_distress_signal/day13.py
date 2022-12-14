@@ -7,8 +7,7 @@ def compare(l, r):
     l = list((l,)) if isinstance(l, int) else l
     r = list((r,)) if isinstance(r, int) else r
     for ll, rr in zip(l, r):
-        cmp = compare(ll, rr)
-        if cmp != 0:
+        if (cmp := compare(ll, rr)) != 0:
             return cmp
     return (len(l) > len(r)) - (len(l) < len(r))
 
