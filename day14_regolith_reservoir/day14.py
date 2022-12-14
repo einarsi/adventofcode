@@ -20,14 +20,12 @@ def make_grid(M, N, empty_char=" ", has_floor=False):
 
 def drop_sand(grid, insert_pt, empty_char=" ", has_floor=False):
     grid[0][insert_pt] = "+"
-    maxy = len(grid)
-    m = -1
     i = 0
 
     while True:
         m = 0
         n = insert_pt
-        while has_floor or m < maxy - 1:
+        while has_floor or m < len(grid) - 1:
             if n == 0:  # expand grid left
                 for row in grid:
                     row.insert(0, empty_char)
@@ -49,11 +47,10 @@ def drop_sand(grid, insert_pt, empty_char=" ", has_floor=False):
             else:
                 break
         else:
-            m += 1
             break  # sand falls out of bounds
         i += 1
         grid[m][n] = "o"
-        if has_floor and m == 0:  # sand insert pt clogged
+        if m == 0:  # sand insert pt clogged
             break
     return i
 
