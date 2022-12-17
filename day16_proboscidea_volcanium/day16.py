@@ -1,12 +1,13 @@
+from collections import deque
 from itertools import combinations
 
 
 def bfs(graph, node, target=None):
-    queue = [node]
+    queue = deque([node])
     distance = {node: 0}
 
     while queue:
-        n = queue.pop(0)
+        n = queue.popleft()
         for neighbor in graph[n]["neighbors"]:
             if neighbor not in distance:
                 distance[neighbor] = 1 + distance[n]
@@ -19,10 +20,10 @@ def bfs(graph, node, target=None):
 def find_max_flow(graph, startnode, available_time=30):
     max_flow = 0
 
-    queue = [(startnode, 0, 0, set(graph) - {"AA"})]
+    queue = deque([(startnode, 0, 0, set(graph) - {"AA"})])
 
     while queue:
-        node, acc_time, acc_flow, closed_valves = queue.pop(0)
+        node, acc_time, acc_flow, closed_valves = queue.popleft()
 
         for neighbor in closed_valves:
             time_there = graph[node]["neighbors"][neighbor]
@@ -50,7 +51,7 @@ def find_max_flow(graph, startnode, available_time=30):
 
 def divide_rooms(graph):
     rooms = set(graph.keys()) - {"A"}
-    # Huh,splitting the rooms in two equal parts (+/-1) actually gave the correct
+    # Huh,splitting the rooms in two equal parts actually gave the correct
     # answer. Saved a for-layer and lots of calculation time. Just luck?
     for me in combinations(sorted(rooms), len(rooms) // 2):
         my_graph = {"AA": graph["AA"]}
