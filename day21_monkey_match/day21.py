@@ -1,8 +1,8 @@
 def get_value(m):
-    if isinstance(monkeys[m], int):
+    if isinstance(monkeys[m], float):
         return monkeys[m]
     else:
-        monk1, op, monk2 = map(str.strip, monkeys[m].split())
+        monk1, op, monk2 = monkeys[m].split()
         m1 = get_value(monk1)
         m2 = get_value(monk2)
         if op == "+":
@@ -12,7 +12,7 @@ def get_value(m):
         elif op == "*":
             return m1 * m2
         elif op == "/":
-            return m1 // m2
+            return m1 / m2
         else:
             assert False
 
@@ -25,28 +25,28 @@ for line in lines:
     m, o = line.split(":")
     o = o.strip()
     if o.isnumeric():
-        monkeys[m.strip()] = int(o)
+        monkeys[m.strip()] = float(o)
     else:
         monkeys[m.strip()] = o
 
 monkeys_orig = monkeys.copy()
 
-print(pt1 := get_value("root"))
+print(pt1 := int(get_value("root")))
 assert pt1 == 21208142603224
 
 
 def get_expression(m):
     if m == "humn":
         return "x"
-    if isinstance(monkeys[m], int):
+    if isinstance(monkeys[m], float):
         return monkeys[m]
 
-    monk1, op, monk2 = map(str.strip, monkeys[m].split())
+    monk1, op, monk2 = monkeys[m].split()
     m1 = get_expression(monk1)
     m2 = get_expression(monk2)
-    if (isinstance(m1, int)) and (isinstance(m2, int)):
-        m1 = int(m1)
-        m2 = int(m2)
+    if (isinstance(m1, float)) and (isinstance(m2, float)):
+        m1 = float(m1)
+        m2 = float(m2)
         if op == "+":
             return m1 + m2
         elif op == "-":
@@ -54,20 +54,11 @@ def get_expression(m):
         elif op == "*":
             return m1 * m2
         elif op == "/":
-            return m1 // m2
+            return m1 / m2
         else:
             assert False
     else:
-        if op == "+":
-            return f"({m1} + {m2})"
-        elif op == "-":
-            return f"({m1} - {m2})"
-        elif op == "*":
-            return f"{m1} * {m2}"
-        elif op == "/":
-            return f"{m1} // {m2}"
-        else:
-            assert False
+        return f"({m1} {op} {m2})"
 
 
 monkeys = monkeys_orig.copy()
@@ -84,13 +75,12 @@ print("rhs:", rhsexpr)
 
 expr, const = (lhsexpr, rhsexpr) if "x" in lhsexpr else (rhsexpr, lhsexpr)
 
-# Unfortunately expr is still somewhat convoluted, so can't easily solve for x.
-# Do a crude search by halving an interval from max and min values for x.
-# Sign check for diff depend on whether x enters expression with positive or
-# negative sign. This happens happens to be opposite for the example and the input.
+# Do a binary search for x. Sign checks for diff depend on whether x enters
+# expression with positive or negative sign. This happens happens to be opposite
+# for the example and the input.
 
 lolim = 0
-hilim = int(1e15)
+hilim = int(1e13)
 while lolim < hilim:
     x = (lolim + hilim) // 2
     diff = const - eval(expr)
@@ -101,5 +91,5 @@ while lolim < hilim:
     else:
         lolim = hilim
 
-print(pt2 := x)
+print(pt2 := int(x))
 assert pt2 == 3882224466191
