@@ -93,3 +93,16 @@ while lolim < hilim:
 
 print(pt2 := int(x))
 assert pt2 == 3882224466191
+
+# Analytical method using derivative since expr is linear in x. The delta for x
+# to calculate the derivative must be very high to get correct result. Probably due
+# to numerical precision effects.
+# 0 = y(0) + y' * x
+# x = y(0) / y'
+x = 0
+y0 = eval(expr) - const
+x = 1e13
+y1 = eval(expr) - const
+dydx = (y1 - y0) / x
+print(pt2 := int(-y0 / dydx))
+assert pt2 == 3882224466191
