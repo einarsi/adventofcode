@@ -20,7 +20,7 @@ DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 # 2 LD
 # 3 B
 
-faces = {
+FACES = {
     "B": (3, 0),  # Back
     "L": (2, 0),  # Left
     "D": (2, 1),  # Down
@@ -31,7 +31,7 @@ faces = {
 
 
 def get_face(pos, sz):
-    for face, coords in faces.items():
+    for face, coords in FACES.items():
         if coords[0] <= pos[0] // sz < coords[0] + 1 and coords[1] <= pos[1] // sz < coords[1] + 1:
             return face
     assert False, pos
@@ -67,62 +67,62 @@ def wrap(G, pos, d, cube=False):
         face = get_face((pos[0] - DIRS[d][0], pos[1] - DIRS[d][1]), sz)
         if d == 0:  # right
             if face == "R":
-                nxt = ((faces["D"][0] + 1) * sz - 1 - pos[0] % sz, faces["D"][1] * sz + sz - 1)
+                nxt = ((FACES["D"][0] + 1) * sz - 1 - pos[0] % sz, FACES["D"][1] * sz + sz - 1)
                 nxtd = 2  # left
                 assert get_face(nxt, sz) == "D"
-            if face == "F":
-                nxt = ((faces["R"][0] + 1) * sz - 1, faces["R"][1] * sz + pos[0] % sz)
+            elif face == "F":
+                nxt = ((FACES["R"][0] + 1) * sz - 1, FACES["R"][1] * sz + pos[0] % sz)
                 nxtd = 3  # up
                 assert get_face(nxt, sz) == "R"
-            if face == "D":
-                nxt = ((faces["R"][0] + 1) * sz - 1 - pos[0] % sz, (faces["R"][1] + 1) * sz - 1)
+            elif face == "D":
+                nxt = ((FACES["R"][0] + 1) * sz - 1 - pos[0] % sz, (FACES["R"][1] + 1) * sz - 1)
                 nxtd = 2  # left
                 assert get_face(nxt, sz) == "R", nxt
-            if face == "B":
-                nxt = ((faces["D"][0] + 1) * sz - 1, faces["D"][1] * sz + pos[0] % sz)
+            elif face == "B":
+                nxt = ((FACES["D"][0] + 1) * sz - 1, FACES["D"][1] * sz + pos[0] % sz)
                 nxtd = 3  # up
                 assert get_face(nxt, sz) == "D"
         elif d == 1:  # down
             if face == "B":
-                nxt = (faces["R"][0] * sz, faces["R"][1] * sz + pos[1] % sz)
+                nxt = (FACES["R"][0] * sz, FACES["R"][1] * sz + pos[1] % sz)
                 nxtd = 1  # down
                 assert get_face(nxt, sz) == "R"
-            if face == "D":
-                nxt = (faces["B"][0] * sz + pos[1] % sz, (faces["B"][1] + 1) * sz - 1)
+            elif face == "D":
+                nxt = (FACES["B"][0] * sz + pos[1] % sz, (FACES["B"][1] + 1) * sz - 1)
                 nxtd = 2  # left
                 assert get_face(nxt, sz) == "B"
-            if face == "R":
-                nxt = (faces["F"][0] * sz + pos[1] % sz, (faces["F"][1] + 1) * sz - 1)
+            elif face == "R":
+                nxt = (FACES["F"][0] * sz + pos[1] % sz, (FACES["F"][1] + 1) * sz - 1)
                 nxtd = 2  # left
                 assert get_face(nxt, sz) == "F"
         elif d == 2:  # left
             if face == "U":
-                nxt = ((faces["L"][0] + 1) * sz - 1 - pos[0] % sz, faces["L"][1] * sz)
+                nxt = ((FACES["L"][0] + 1) * sz - 1 - pos[0] % sz, FACES["L"][1] * sz)
                 nxtd = 0  # right
                 assert get_face(nxt, sz) == "L", (pos, nxt)
-            if face == "F":
-                nxt = (faces["L"][0] * sz, faces["L"][1] * sz + pos[0] % sz)
+            elif face == "F":
+                nxt = (FACES["L"][0] * sz, FACES["L"][1] * sz + pos[0] % sz)
                 nxtd = 1  # down
                 assert get_face(nxt, sz) == "L"
-            if face == "L":
-                nxt = ((faces["U"][0] + 1) * sz - 1 - pos[0] % sz, faces["U"][1] * sz)
+            elif face == "L":
+                nxt = ((FACES["U"][0] + 1) * sz - 1 - pos[0] % sz, FACES["U"][1] * sz)
                 nxtd = 0  # right
                 assert get_face(nxt, sz) == "U", (pos, nxt)
-            if face == "B":
-                nxt = (faces["U"][0] * sz, faces["U"][1] * sz + pos[0] % sz)
+            elif face == "B":
+                nxt = (FACES["U"][0] * sz, FACES["U"][1] * sz + pos[0] % sz)
                 nxtd = 1  # down
                 assert get_face(nxt, sz) == "U"
         elif d == 3:  # up
             if face == "L":
-                nxt = (faces["F"][0] * sz + pos[1] % sz, faces["F"][1] * sz)
+                nxt = (FACES["F"][0] * sz + pos[1] % sz, FACES["F"][1] * sz)
                 nxtd = 0  # right
                 assert get_face(nxt, sz) == "F"
-            if face == "U":
-                nxt = (faces["B"][0] * sz + pos[0] % sz, faces["B"][1] * sz)
+            elif face == "U":
+                nxt = (FACES["B"][0] * sz + pos[0] % sz, FACES["B"][1] * sz)
                 nxtd = 0  # right
                 assert get_face(nxt, sz) == "B"
-            if face == "R":
-                nxt = ((faces["B"][0] + 1) * sz - 1, faces["B"][1] * sz + pos[1] % sz)
+            elif face == "R":
+                nxt = ((FACES["B"][0] + 1) * sz - 1, FACES["B"][1] * sz + pos[1] % sz)
                 nxtd = 3  # up
                 assert get_face(nxt, sz) == "B"
         return nxt, nxtd
