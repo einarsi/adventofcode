@@ -5,5 +5,6 @@
     "editor.formatOnSave": true,
     "mypy-type-checker.ignorePatterns": [
         "*.py"
-    ]
+    ],
+    "editor.defaultFormatter": "charliermarsh.ruff"
 }
